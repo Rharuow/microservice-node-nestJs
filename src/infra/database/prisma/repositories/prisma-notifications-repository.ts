@@ -1,3 +1,4 @@
+import { PrismaNotificationMapper } from './../mapper/prisma-nitification-mapper';
 import { NotificationsRepository } from '@application/repositories/notifications-repositories';
 import { PrismaService } from '../prisma.service';
 import { Notification } from '@application/entities/notification';
@@ -11,15 +12,10 @@ export class PrismaNotificationsRepository implements NotificationsRepository {
   }
 
   async create(notification: Notification): Promise<void> {
+    const prismaMapper = PrismaNotificationMapper.toPrisma(notification);
+
     await this.prismaService.notification.create({
-      data: {
-        id: notification.id,
-        content: notification.content.value,
-        category: notification.category,
-        recipientId: notification.recipientId,
-        readAt: notification.readAt,
-        createdAt: notification.createdAt,
-      },
+      data: prismaMapper,
     });
   }
 }

@@ -1,3 +1,4 @@
+import { ControllerNotificationMapper } from './../mapper/controller-notification-mapper';
 import { CreateNotificationBody } from '../dtos/create-notification-body';
 import { Body, Controller, Get, Post } from '@nestjs/common';
 import { SendNotification } from '@application/use-cases/send-notification';
@@ -16,6 +17,8 @@ export class NotificaitonsController {
       content,
     });
 
-    return { notification };
+    return {
+      notification: ControllerNotificationMapper,
+    };
   }
 }
